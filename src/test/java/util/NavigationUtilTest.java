@@ -178,6 +178,18 @@ public class NavigationUtilTest {
         assertEquals(1, rover.getYPos());
     }
 
+    @Test
+    public void testThatIfRoverDirectionIsNull_NoInstructionIsExecuted(){
+        rover.setDirection(null);
+        rover.setXPos(1);
+        rover.setYPos(1);
 
+        navigationUtil.setRover(rover);
+        navigationUtil.move(Instruction.R);
+
+        assertNull(rover.getDirection());
+        assertEquals(1, rover.getXPos());
+        assertEquals(1, rover.getYPos());
+    }
 
 }

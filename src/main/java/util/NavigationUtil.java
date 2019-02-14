@@ -9,22 +9,24 @@ import static model.Instruction.*;
 public class NavigationUtil {
 
     private Rover rover;
-    private Direction roverCurrentDirection;
 
     public void setRover(Rover rover) {
         this.rover = rover;
-        roverCurrentDirection = rover.getDirection();
     }
 
     public void move(Instruction instruction) {
-        switch (roverCurrentDirection) {
-            case NORTH: handleNorth(instruction);
-            break;
-            case EAST: handleEast(instruction);
-            break;
-            case SOUTH: handleSouth(instruction);
-            break;
-            case WEST: handleWest(instruction);
+        if(rover.getDirection() != null){
+            switch (rover.getDirection()) {
+                case NORTH: handleNorth(instruction);
+                    break;
+                case EAST: handleEast(instruction);
+                    break;
+                case SOUTH: handleSouth(instruction);
+                    break;
+                case WEST: handleWest(instruction);
+            }
+        } else {
+            System.out.println("Direction is null");
         }
     }
 
