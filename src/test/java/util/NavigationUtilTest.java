@@ -17,7 +17,7 @@ public class NavigationUtilTest {
     public void setUp(){
         rover = new Rover();
 
-        navigationUtil = new NavigationUtil();
+        navigationUtil = new NavigationUtil(rover, 8, 10);
     }
 
     @Test
@@ -102,12 +102,12 @@ public class NavigationUtilTest {
     public void testThatIfRoverDirectionIsSouth_AndInstructionIsM_RoverYPosDecreasesBy1(){
         rover.setDirection(Direction.SOUTH);
         rover.setXPos(1);
-        rover.setYPos(1);
+        rover.setYPos(2);
 
         navigationUtil.setRover(rover);
         navigationUtil.move(Instruction.M);
 
-        assertEquals(0, rover.getYPos());
+        assertEquals(1, rover.getYPos());
     }
 
     @Test
@@ -141,13 +141,13 @@ public class NavigationUtilTest {
     @Test
     public void testThatIfRoverDirectionIsWest_AndInstructionIsM_RoverXPosDecreasesBy1(){
         rover.setDirection(Direction.WEST);
-        rover.setXPos(1);
+        rover.setXPos(2);
         rover.setYPos(1);
 
         navigationUtil.setRover(rover);
         navigationUtil.move(Instruction.M);
 
-        assertEquals(0, rover.getXPos());
+        assertEquals(1, rover.getXPos());
     }
 
     @Test
@@ -190,6 +190,54 @@ public class NavigationUtilTest {
         assertNull(rover.getDirection());
         assertEquals(1, rover.getXPos());
         assertEquals(1, rover.getYPos());
+    }
+
+    @Test
+    public void testThatIfRoverDirectionIsEastAndInstructionIsM_DoesNotExceedXBound(){
+        rover.setDirection(Direction.EAST);
+        rover.setXPos(8);
+        rover.setYPos(1);
+
+        navigationUtil.setRover(rover);
+        navigationUtil.move(Instruction.M);
+
+        assertEquals(8, rover.getXPos());
+    }
+
+    @Test
+    public void testThatIfRoverDirectionIsNorthAndInstructionIsM_DoesNotExceedYBound(){
+        rover.setDirection(Direction.NORTH);
+        rover.setXPos(8);
+        rover.setYPos(10);
+
+        navigationUtil.setRover(rover);
+        navigationUtil.move(Instruction.M);
+
+        assertEquals(10, rover.getYPos());
+    }
+
+    @Test
+    public void testThatIfRoverDirectionIsSouthAndInstructionIsM_DoesNotExceedYBound(){
+        rover.setDirection(Direction.SOUTH);
+        rover.setXPos(8);
+        rover.setYPos(1);
+
+        navigationUtil.setRover(rover);
+        navigationUtil.move(Instruction.M);
+
+        assertEquals(1, rover.getYPos());
+    }
+
+    @Test
+    public void testThatIfRoverDirectionIsWestAndInstructionIsM_DoesNotExceedXBound(){
+        rover.setDirection(Direction.WEST);
+        rover.setXPos(1);
+        rover.setYPos(1);
+
+        navigationUtil.setRover(rover);
+        navigationUtil.move(Instruction.M);
+
+        assertEquals(1, rover.getXPos());
     }
 
 }

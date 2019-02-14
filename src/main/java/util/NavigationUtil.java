@@ -9,6 +9,14 @@ import static model.Instruction.*;
 public class NavigationUtil {
 
     private Rover rover;
+    private int xBound;
+    private int yBound;
+
+    public NavigationUtil(Rover rover, int xBound, int yBound) {
+        this.rover = rover;
+        this.xBound = xBound;
+        this.yBound = yBound;
+    }
 
     public void setRover(Rover rover) {
         this.rover = rover;
@@ -31,19 +39,40 @@ public class NavigationUtil {
     }
 
     private int moveForward(int currentYPos) {
-        return currentYPos + 1;
+        if(currentYPos == yBound){
+            System.out.println("Boundary reached for the cartesian plane");
+            return currentYPos;
+        } else {
+            return currentYPos + 1;
+        }
     }
 
     private int moveRight(int currentXPos){
-        return currentXPos + 1;
+        if(currentXPos == xBound){
+            System.out.println("Boundary reached for the cartesian plane");
+            return currentXPos;
+        } else {
+            return currentXPos + 1;
+        }
+
     }
 
     private int moveBack(int currentYPos){
-        return currentYPos - 1;
+        if(currentYPos == 1){
+            System.out.println("Boundary reached for the cartesian plane");
+            return currentYPos;
+        } else {
+            return currentYPos - 1;
+        }
     }
 
     private int moveLeft(int currentXPos){
-        return currentXPos - 1;
+        if(currentXPos == 1){
+            System.out.println("Boundary reached for the cartesian plane");
+            return currentXPos;
+        } else {
+            return currentXPos - 1;
+        }
     }
 
     private void handleNorth(Instruction instruction){
