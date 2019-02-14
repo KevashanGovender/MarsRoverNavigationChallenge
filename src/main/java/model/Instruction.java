@@ -4,5 +4,6 @@ public enum Instruction {
 
     M,
     R,
-    L
+    L,
+    D
 }
